@@ -34,7 +34,11 @@ package java.lang;
  * @see     java.lang.Class
  * @since   JDK1.0
  */
-// object 是java中所有类的超级类，包括数组，可以理解为一颗树的最底层的根
+/**
+ * object 是java中所有类的超级类，包括数组，可以理解为一颗树的最底层的根
+ *
+ * Object 该类中 只有toString()方法和 eqlues()方法 是java方法 重载两个wait() finalize() 其余都是本地方法
+ */
 public class Object {
 
     //调用c++
@@ -269,6 +273,10 @@ public class Object {
      *
      * @return  a string representation of the object.
      */
+    /**
+     *hashcode  十六进制 默认的就是 getclass.getName + ...
+     * @return
+     */
     public String toString() {
         return getClass().getName() + "@" + Integer.toHexString(hashCode());
     }
@@ -305,6 +313,9 @@ public class Object {
      * @see        java.lang.Object#notifyAll()
      * @see        java.lang.Object#wait()
      */
+    /**
+     * 唤醒当个线程
+     */
     public final native void notify();
 
     /**
@@ -328,6 +339,9 @@ public class Object {
      *               the owner of this object's monitor.
      * @see        java.lang.Object#notify()
      * @see        java.lang.Object#wait()
+     */
+    /**
+     * 唤醒所有等待的线程
      */
     public final native void notifyAll();
 
@@ -535,6 +549,10 @@ public class Object {
      * @see        java.lang.Object#notify()
      * @see        java.lang.Object#notifyAll()
      */
+    /**
+     * wait 0 一直等待
+     * @throws InterruptedException
+     */
     public final void wait() throws InterruptedException {
         wait(0);
     }
@@ -588,6 +606,15 @@ public class Object {
      * @see java.lang.ref.WeakReference
      * @see java.lang.ref.PhantomReference
      * @jls 12.6 Finalization of Class Instances
+     */
+    /**
+     * 当垃圾收集确定不再有对对象的引用时，由垃圾收集器在对象上调用。子类覆盖方法来处理系统资源或执行其他清理。
+     * 通常目的是在对象被不可撤销地丢弃之前执行清理操作
+     * (1).对象不一定会被回收。
+     * (2).垃圾回收不是析构函数。
+     * (3).垃圾回收只与内存有关。
+     * (4).垃圾回收和finalize()都是靠不住的，只要JVM还没有快到耗尽内存的地步，它是不会浪费时间进行垃圾回收的。
+     * @throws Throwable
      */
     protected void finalize() throws Throwable { }
 }

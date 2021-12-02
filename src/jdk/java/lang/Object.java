@@ -34,10 +34,29 @@ package java.lang;
  * @see     java.lang.Class
  * @since   JDK1.0
  */
+// object 是java中所有类的超级类，包括数组，可以理解为一颗树的最底层的根
 public class Object {
 
+    //调用c++
+    /**
+     * native修饰的是本地方法；本地方法就是用来联系Java程序和底层主机操作系统的连接方法
+     */
     private static native void registerNatives();
+    //静态块 类加载的时候就会触发
+    /**
+     * 普及一个知识点：一个java程序要想调用本地方法啊，需要执行两个步骤，
+     * 1.通过System.loadLibray()将包含本地方法实现的动态文件加载进内存
+     * 2.当java程序需要调用本地方法时，虚拟机在加载的动态文件中定位并链接该本地方法，从而执行本地方法(registerNatives()方法的作用就是取代第二步)
+     */
     static {
+        //此方法的作用就是将除了此方法的之外的 本地方法加入到调用链
+        //当包含registerNatives()方法的类被加载的时候，注册的方法就是该类所包含的除了registerNatives()方法以外的所有本地方法
+        /**
+         * registerNatives的方法的三点好处
+         * 1.通过registerNatives方法在类被加载的时候，就主动将本地方法链接到调用方，比当方法被使用时再由虚拟机来定位和链接更方便有效
+         * 2.如果本地方法在程序运行中更新了，可以通过调用registerNatives方法进行更新
+         * 3.java程序需要调用一个本地应用提供的方法时候，因为虚拟机只会检索本地动态库，因而虚拟机是无法定位本地方法实现的，这个时候就只能使用regiseterNatives（）方法主动链接
+         */
         registerNatives();
     }
 
@@ -59,6 +78,10 @@ public class Object {
      * @return The {@code Class} object that represents the runtime
      *         class of this object.
      * @jls 15.8.2 Class Literals
+     */
+    /**
+     * 获取类的完整名称 native 本地方法
+     * @return
      */
     public final native Class<?> getClass();
 
@@ -96,6 +119,10 @@ public class Object {
      * @return  a hash code value for this object.
      * @see     java.lang.Object#equals(java.lang.Object)
      * @see     java.lang.System#identityHashCode
+     */
+    /**
+     * 获取hashcode native 本地方法
+     * @return
      */
     public native int hashCode();
 
@@ -144,6 +171,11 @@ public class Object {
      *          argument; {@code false} otherwise.
      * @see     #hashCode()
      * @see     java.util.HashMap
+     */
+    /**
+     * equals 方法 比较的  ==  引用地址
+     * @param obj
+     * @return
      */
     public boolean equals(Object obj) {
         return (this == obj);
@@ -208,6 +240,11 @@ public class Object {
      *               throw this exception to indicate that an instance cannot
      *               be cloned.
      * @see java.lang.Cloneable
+     */
+    /**
+     * 也是 native本地方法  所有的数组 都去继承了Cloneable接口
+     * @return
+     * @throws CloneNotSupportedException
      */
     protected native Object clone() throws CloneNotSupportedException;
 

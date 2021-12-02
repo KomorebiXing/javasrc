@@ -52,6 +52,7 @@ import java.lang.annotation.Native;
 
 /**
  * Interger 继承了 Number抽象类，实现了Coparable接口实现可比较 同时此类被final修饰
+ * 两个属性最大值 和最小值都是被 Native修饰的
  */
 public final class Integer extends Number implements Comparable<Integer> {
     /**
@@ -79,14 +80,18 @@ public final class Integer extends Number implements Comparable<Integer> {
      * @since   JDK1.1
      */
     /**
-     * Class.getPrimitiveClass("int")
+     * Class.getPrimitiveClass("int") 这是Class 类中的方法 可以获取原始属性 也是被Native修饰的方法
      */
     @SuppressWarnings("unchecked")
+    /**
+     * 使用包装类的TYPE属性来获取包装类对应的Class类 这就是自动装包 秘密
+     */
     public static final Class<Integer>  TYPE = (Class<Integer>) Class.getPrimitiveClass("int");
 
     /**
      * All possible chars for representing a number as a String
      */
+    //所有表示可能为数字的字符
     final static char[] digits = {
         '0' , '1' , '2' , '3' , '4' , '5' ,
         '6' , '7' , '8' , '9' , 'a' , 'b' ,
@@ -720,6 +725,12 @@ public final class Integer extends Number implements Comparable<Integer> {
      *            parsable unsigned integer.
      * @since 1.8
      */
+    /**
+     * 解析无符号整数 默认是10进制
+     * @param s
+     * @return
+     * @throws NumberFormatException
+     */
     public static int parseUnsignedInt(String s) throws NumberFormatException {
         return parseUnsignedInt(s, 10);
     }
@@ -789,7 +800,12 @@ public final class Integer extends Number implements Comparable<Integer> {
      * may be set and saved in the private system properties in the
      * sun.misc.VM class.
      */
-
+    /**
+     * 这就是Integer 为什么 -128 - 127 内的数字 不会在堆内存中重新创造对象，这是因为它提供了一个缓存（内部静态类），
+     * 此方法为静态方法，在类加载的时候就会将其缓存加入到堆
+     *
+     * IntegerCache.high属性可能会被设置并保存在sun.misc.VM类的私有系统属性中。
+     */
     private static class IntegerCache {
         static final int low = -128;
         static final int high;
@@ -821,6 +837,7 @@ public final class Integer extends Number implements Comparable<Integer> {
             assert IntegerCache.high >= 127;
         }
 
+        // 私有构造方法
         private IntegerCache() {}
     }
 
@@ -838,6 +855,11 @@ public final class Integer extends Number implements Comparable<Integer> {
      * @param  i an {@code int} value.
      * @return an {@code Integer} instance representing {@code i}.
      * @since  1.5
+     */
+    /**
+     * 在获取 int 数值 会判断 这个值是否是 缓存中存在的值
+     * @param i
+     * @return
      */
     public static Integer valueOf(int i) {
         if (i >= IntegerCache.low && i <= IntegerCache.high)

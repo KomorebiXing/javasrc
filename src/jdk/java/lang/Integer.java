@@ -49,16 +49,26 @@ import java.lang.annotation.Native;
  * @author  Joseph D. Darcy
  * @since JDK1.0
  */
+
+/**
+ * Interger 继承了 Number抽象类，实现了Coparable接口实现可比较 同时此类被final修饰
+ */
 public final class Integer extends Number implements Comparable<Integer> {
     /**
      * A constant holding the minimum value an {@code int} can
      * have, -2<sup>31</sup>.
+     */
+    /**
+     * -2 的 31次方
      */
     @Native public static final int   MIN_VALUE = 0x80000000;
 
     /**
      * A constant holding the maximum value an {@code int} can
      * have, 2<sup>31</sup>-1.
+     */
+    /**
+     *  2的  31 次方
      */
     @Native public static final int   MAX_VALUE = 0x7fffffff;
 
@@ -67,6 +77,9 @@ public final class Integer extends Number implements Comparable<Integer> {
      * {@code int}.
      *
      * @since   JDK1.1
+     */
+    /**
+     * Class.getPrimitiveClass("int")
      */
     @SuppressWarnings("unchecked")
     public static final Class<Integer>  TYPE = (Class<Integer>) Class.getPrimitiveClass("int");

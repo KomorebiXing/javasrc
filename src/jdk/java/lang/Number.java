@@ -52,6 +52,15 @@ package java.lang;
  * @jls 5.1.3 Narrowing Primitive Conversions
  * @since   JDK1.0
  */
+
+/**
+ * 抽象类 Nuber类 提供了四个抽象的方法 intValue（） longValue（） doubleValue（） floatValue（） （都会有精度丢失的可能 四舍五入）
+ * 提供了两个方法：
+ * 1.byteValue()
+ * 2.shortValue()
+ * 这两个方法都是调用 intValue 返回int类型 并进行强转换
+ *
+ */
 public abstract class Number implements java.io.Serializable {
     /**
      * Returns the value of the specified number as an {@code int},

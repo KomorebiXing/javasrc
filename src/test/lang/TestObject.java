@@ -47,15 +47,16 @@ public class TestObject {
         Acount acount2 = null;
         try {
             acount2 = (Acount)acount1.clone();
-//            acount2.setPerson(new Person02("Rose",20));
+            acount2.setPerson(new Person02("Rose",20));
 //            acount2.setBalance(200);
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
         System.out.println(acount1);
         System.out.println(acount2);
-        System.out.println(acount1.getPerson() == acount2.getPerson());// false
+        System.out.println(acount1.getPerson() == acount2.getPerson());// false 深克隆
         System.out.println(acount1.getPerson().equals(acount2.getPerson())); //false
+        System.out.println(acount1.getBalance() == acount2.getBalance()); //true  基本数据类型 浅克隆
 
     }
 /*********************************************克隆********************************************/

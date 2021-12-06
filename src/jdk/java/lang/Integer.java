@@ -53,6 +53,11 @@ import java.lang.annotation.Native;
 /**
  * Interger 继承了 Number抽象类，实现了Coparable接口实现可比较 同时此类被final修饰
  * 两个属性最大值 和最小值都是被 Native修饰的
+ *
+ * 总结：
+ * 1、Integer被final修饰，不能被继承
+ * 2、继承Number类，拥有intValue(),longValue(),floatValue()等方法
+ * 3、实现Comparable接口，必须实现compareTo()方法，而且必须与Integer类进行比较
  */
 public final class Integer extends Number implements Comparable<Integer> {
     /**
@@ -69,7 +74,7 @@ public final class Integer extends Number implements Comparable<Integer> {
      * have, 2<sup>31</sup>-1.
      */
     /**
-     *  2的  31 次方
+     *  2的  -31 次方
      */
     @Native public static final int   MAX_VALUE = 0x7fffffff;
 

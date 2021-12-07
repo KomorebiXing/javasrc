@@ -23,4 +23,10 @@ public class TestInteger {
         int i = Integer.parseUnsignedInt("123456",12);
         System.out.println("解析无符号的整数：" + i);
     }
+
+    @Test
+    public void Test03(){
+        String s = Integer.toString(1, 2);
+        System.out.println(s);
+    }
 }

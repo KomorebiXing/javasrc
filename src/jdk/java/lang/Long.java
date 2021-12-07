@@ -803,6 +803,9 @@ public final class Long extends Number implements Comparable<Long> {
         return Long.valueOf(parseLong(s, 10));
     }
 
+    /**
+     * Long自身实现了一种缓存机制，缓存了从-128到127内所有的Long值，如果是这个范围内的Long值，就不会初始化，而是从缓存中拿取。
+     */
     private static class LongCache {
         private LongCache(){}
 
@@ -1205,6 +1208,7 @@ public final class Long extends Number implements Comparable<Long> {
     public static Long getLong(String nm, Long val) {
         String v = null;
         try {
+            //从系统属性中获取
             v = System.getProperty(nm);
         } catch (IllegalArgumentException | NullPointerException e) {
         }

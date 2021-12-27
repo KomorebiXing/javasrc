@@ -835,11 +835,17 @@ public final class Long extends Number implements Comparable<Long> {
      * @return a {@code Long} instance representing {@code l}.
      * @since  1.5
      */
+    /**
+     * 有个方法会进行一个缓存
+     * @param l
+     * @return
+     */
     public static Long valueOf(long l) {
         final int offset = 128;
         if (l >= -128 && l <= 127) { // will cache
             return LongCache.cache[(int)l + offset];
         }
+        // 会调用有参构造器
         return new Long(l);
     }
 
@@ -1204,6 +1210,12 @@ public final class Long extends Number implements Comparable<Long> {
      *          {@link System#getProperty(String) System.getProperty}
      * @see     System#getProperty(java.lang.String)
      * @see     System#getProperty(java.lang.String, java.lang.String)
+     */
+    /**
+     * getLong  合 vloueOf 都是返回Long类型 ，唯一不同的是getLong会冲系统属性中获取，可能会抛出异常 ，而vloueOf先从缓存中获取，如果没有会new一个LONG的对象
+     * @param nm
+     * @param val
+     * @return
      */
     public static Long getLong(String nm, Long val) {
         String v = null;

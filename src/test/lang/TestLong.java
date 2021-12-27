@@ -24,4 +24,11 @@ public class TestLong {
         String s = Long.toUnsignedString(-12312); //默认就是10进制 调用的是下面的方法
         String s2 = Long.toUnsignedString(-8,2); //如果是大于0，那么直接调用toString方法 否则根据传入的redix来单独走各自的逻辑
     }
+
+    @Test
+    public void TestGetLong(){
+        Long aLong = Long.getLong("java.version");
+        String property = System.getProperty("os.name");
+        Long aLong1 = Long.valueOf("12");
+    }
 }
